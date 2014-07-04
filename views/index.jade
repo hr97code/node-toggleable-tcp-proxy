@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    h1 Simple Node TCP Proxy
+    p This is a simple example of toggling a tcp proxy.
+    button(id="start", type=button, class="btn btn-success") Start
+    button(id="stop", type=button, class="btn btn-danger") Stop
+
+block inlinejs
+    script.
+        if (#{started}) {
+            $("#start").prop('disabled', true);
+            $("#stop").click(function(){
+                $.ajax({
+                    type: 'PUT',
+                    url: '/stop'
+                }).done(function() {
+                        window.location = "/";
+                    });
+            });
+        } else {
+            $("#stop").prop('disabled', true);
+            $("#start").click(function(){
+                $.ajax({
+                    type: 'PUT',
+                    url: '/start'
+                }).done(function() {
+                        window.location = "/";
+                    });
+            });
+        }
+
